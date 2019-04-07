@@ -12,7 +12,8 @@ def remove_password(file_name, password):
     for page in range(0, pdfReader.numPages):
         pdfWriter.addPage(pdfReader.getPage(page))
     
-    decrypted_file = file_name.split('_')[0] + 'asdv' + '.pdf'
-    resultPdf = open(decrypted_file, 'wb')
+    decrypted_file_name = file_name.split('_')[0] + '.pdf'
+    resultPdf = open(decrypted_file_name, 'wb')
     pdfWriter.write(resultPdf)
     resultPdf.close()
+    return decrypted_file_name
