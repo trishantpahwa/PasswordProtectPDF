@@ -10,10 +10,10 @@ class database:
     __tables = ['Books']
     __books_column_types = [('CUST_ID', 'INT', 'NOT NULL PRIMARY KEY'),
                             ('Name', 'VARCHAR(20)', 'NOT NULL'),
-                            ('Phone Number', 'VARCHAR(13)', 'NOT NULL'),
+                            ('Phone_Number', 'VARCHAR(13)', 'NOT NULL'),
                             ('Address', 'VARCHAR(30)', 'NOT NULL'),
-                            ('User Password', 'VARCHAR(20)', 'NOT NULL'),
-                            ('Owner Password', 'VARCHAR(20)', 'NOT NULL'),
+                            ('User_Password', 'VARCHAR(20)', 'NOT NULL'),
+                            ('Owner_Password', 'VARCHAR(20)', 'NOT NULL'),
                             ('Date', 'VARCHAR(10)', 'NOT NULL')]
     
     __books_columns = [ x[0] for x in __books_column_types ]
@@ -26,7 +26,7 @@ class database:
     __statement = ''
 
     def __init__(self, table_name):  # table_name[string]
-        db_file = 'books_database.db'
+        db_file = 'database/books_database.db'
         self.__conn = connect(db_file)
         self.__c = self.__conn.cursor()
         if not exists(db_file):
@@ -71,7 +71,7 @@ class database:
         self.__conn.commit()
         self.__conn.close()
 
-    def print_records(self, columns=None, constraints=None):  # columns[list(string)] constraints[dict(string,string)]
+    def print_records(self, columns=None, constraints=None):  # columns[list(string)] or columns[dict(string,string)] constraints[dict(string,string)]
         print_statement = 'SELECT '
         if columns is None:
             print_statement += '* FROM ' + self.__table_name
@@ -88,7 +88,9 @@ class database:
                 self.__statement = print_statement
             if type(columns) == type(dict()):
                 for key, value in columns.items():
-                    print_statement += key + ','
+                    if key in constraints.keys():
+                        constraint = constraints.get(key)
+                        print_statement += constraint + '(' + key + ')' + ','
                 print_statement = print_statement.rstrip(',') + ' FROM ' + \
                     self.__table_name
                 print_statement += ' WHERE '
