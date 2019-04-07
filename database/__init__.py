@@ -7,9 +7,9 @@ date = date[2] + '-' + date[1] + '-' + date[0]
 # Initialize database
 db = database('books')
 # Insert records in database
-db.insert_records(['1', 'Trishant', '9717271991', 'Sector 15', 'user_password', 'owner_password', date])
-db.insert_records(['2', 'Ajay', '9910055388', 'Old Faridabad', 'user_password', 'owner_password', date])
-db.insert_records(['3', 'Vinay', '9811637191', 'Sector 85', 'user_password', 'owner_password', date])
+db.insert_records(['1', 'Trishant', '9717271991', 'Sector 15', 'file1.pdf', 'user_password', 'owner_password', date])
+db.insert_records(['2', 'Ajay', '9910055388', 'Old Faridabad', 'file2.pdf' ,'user_password', 'owner_password', date])
+db.insert_records(['3', 'Vinay', '9811637191', 'Sector 85', 'file2.pdf', 'user_password', 'owner_password', date])
 # Print records from database
 records = db.print_records()
 for record in records:
