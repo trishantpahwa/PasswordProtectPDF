@@ -12,6 +12,7 @@ class database:
                             ('Name', 'VARCHAR(20)', 'NOT NULL'),
                             ('Phone_Number', 'VARCHAR(13)', 'NOT NULL'),
                             ('Address', 'VARCHAR(30)', 'NOT NULL'),
+                            ('PDF_File_Name', 'VARCHAR(30)', 'NOT NULL'),
                             ('User_Password', 'VARCHAR(20)', 'NOT NULL'),
                             ('Owner_Password', 'VARCHAR(20)', 'NOT NULL'),
                             ('Date', 'VARCHAR(10)', 'NOT NULL')]
