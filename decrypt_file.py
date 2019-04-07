@@ -13,7 +13,6 @@ def remove_password(file_name, password):
         pdfWriter.addPage(pdfReader.getPage(page))
     
     decrypted_file = file_name.split('_')[0] + 'asdv' + '.pdf'
-    print(decrypted_file)
     resultPdf = open(decrypted_file, 'wb')
     pdfWriter.write(resultPdf)
     resultPdf.close()
