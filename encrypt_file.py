@@ -5,7 +5,7 @@ def add_password(file_name, user_password, owner_password, cust_id):
     pdfReader = PdfFileReader(file_name)
     pdfWriter = PdfFileWriter()
 
-    for page in range(pdfReader.numPages):
+    for page in range(0, pdfReader.numPages):
         pdfWriter.addPage(pdfReader.getPage(page))
 
     pdfWriter.encrypt(user_password, owner_password)
