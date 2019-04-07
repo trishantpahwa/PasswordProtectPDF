@@ -62,13 +62,13 @@ class database:
         try:
             self.__c.execute(self.__statement)
             rows = self.__c.fetchall()
+            self.__conn.commit()
             return rows
         except Error:
             print(Error)
             traceback.print_stack(Error)
 
     def disconnect_from_server(self):
-        self.__conn.commit()
         self.__conn.close()
 
     def print_records(self, columns=None, constraints=None):  # columns[list(string)] or columns[dict(string,string)] constraints[dict(string,string)]
