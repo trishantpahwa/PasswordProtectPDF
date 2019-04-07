@@ -25,7 +25,7 @@ class database:
 
     __statement = ''
 
-    def __init__(self, table_name):
+    def __init__(self, table_name):  # table_name[string]
         db_file = 'books_database.db'
         self.__conn = connect(db_file)
         self.__c = self.__conn.cursor()
@@ -37,11 +37,11 @@ class database:
         self.__c = self.__conn.cursor()
         print('Connected to database')
 
-    def __create_database(self, file_name):
+    def __create_database(self, file_name):  # file_name[string]
         file = open(file_name, 'w')
         file.close()
 
-    def __set_table_name(self, table_name):
+    def __set_table_name(self, table_name):  # table_name[string]
         self.__statement = 'SELECT name from sqlite_master WHERE type=\"table\"'
         tables = self.__execute_query()
         tables = [table[0] for table in tables]
@@ -71,14 +71,18 @@ class database:
         self.__conn.commit()
         self.__conn.close()
 
-    def print_records(self, columns=None):
+    def print_records(self, columns=None, constraints=None):  # columns[list(string)] constraints[dict(string,string)]
         print_statement = 'SELECT '
         if columns is None:
             print_statement += '* FROM ' + self.__table_name
         else:
             if type(columns) == type(list()):
                 for column in columns:
-                    print_statement += column + ','
+                    if column in constraints.keys():
+                        constraint = constraints.get(column)
+                        print_statement += constraint + '(' + column + ')' + ','
+                    else:
+                        print_statement += column + ','
                 print_statement = print_statement.rstrip(',') + ' FROM ' + \
                     self.__table_name
                 self.__statement = print_statement
@@ -94,7 +98,7 @@ class database:
         self.__statement = print_statement
         return self.__execute_query()
 
-    def insert_records(self, values):
+    def insert_records(self, values):  # values[list(string)]
         insert_statement = 'INSERT INTO ' + self.__table_name + ' VALUES('
         for value in values:
             insert_statement += '\'' + value + '\','
@@ -102,7 +106,7 @@ class database:
         self.__statement = insert_statement
         return self.__execute_query()
 
-    def update_records(self, current_values={}, update_values={}):
+    def update_records(self, current_values={}, update_values={}):  # current_values[dict(string,string)] update_values[dict(string, string)]
         update_statement = 'UPDATE ' + self.__table_name + ' SET '
         for key, value in update_values.items():
             update_statement += key + '=\'' + value + '\' AND '
@@ -113,7 +117,7 @@ class database:
         self.__statement = update_statement
         return self.__execute_query()
 
-    def delete_records(self, values={}):
+    def delete_records(self, values={}):  # values[dict(string,string)]
         delete_statement = 'DELETE FROM ' + self.__table_name + ' WHERE '
         for key, value in values.items():
             delete_statement += key + '=\'' + value + '\' AND '
@@ -121,7 +125,7 @@ class database:
         self.__statement = delete_statement
         return self.__execute_query()
 
-    def __create_table(self, columns):
+    def __create_table(self, columns):  # columns[list(string)]
         create_statement = 'CREATE TABLE ' + self.__table_name + ' ('
         for column, data_type, constraint in columns:
             create_statement += column + ' ' + data_type + ' ' + constraint + ','
