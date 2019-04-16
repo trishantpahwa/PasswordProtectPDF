@@ -1,0 +1,1 @@
+from .decrypt_file import remove_password
