@@ -18,7 +18,7 @@ if pre_encrypted == 'Y' or pre_encrypted == 'y':
     pre_encrypted_password = raw_input('Enter password that file is encrypted with: ')
     decrypted_file_name = remove_password(file_name, pre_encrypted_password)
     db.delete_records({'PDF_File_Name': file_name})
-    print 'Decrypted file to ' + decrypted_file_name
+    print('Decrypted file to ' + decrypted_file_name)
 if pre_encrypted == 'N' or pre_encrypted == 'n':
     name = raw_input('Enter name: ')
     phone_number = raw_input('Enter phone number: ')
@@ -27,4 +27,4 @@ if pre_encrypted == 'N' or pre_encrypted == 'n':
     owner_password = raw_input('Enter owner password: ')
     encrypted_file_name = add_password(file_name, user_password, owner_password, cust_id)
     db.insert_records([cust_id, name, phone_number, address, encrypted_file_name, user_password, owner_password, date])
-    print 'Encrypted file to ' + encrypted_file_name
+    print('Encrypted file to ' + encrypted_file_name)
